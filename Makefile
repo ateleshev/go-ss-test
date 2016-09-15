@@ -13,6 +13,7 @@ clean:
 	  rm -rf $(PWD)/bin
 
 build:
+	  git submodule update --init --recursive --remote && echo "Vendors was successfully updated"
 	  go build -i -o bin/hipchat $(PKG)/cmd/hipchat
 
 generate: root build

@@ -1,0 +1,4 @@
+[submodule "vendor/github.com/ateleshev/go-bin"]
+	path = vendor/github.com/ateleshev/go-bin
+	url = https://github.com/ateleshev/go-bin.git
+	branch = master
