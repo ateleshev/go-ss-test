@@ -48,7 +48,7 @@ func main() {
 		// TODO: Add timeout
 		for _, l := range res.Links {
 			wg.Add(1)
-			UpdateLinkTitle(l, &wg)
+			go UpdateLinkTitle(l, &wg)
 		}
 		wg.Wait()
 
