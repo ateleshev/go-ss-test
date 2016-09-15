@@ -1,0 +1,7 @@
+# Sub-modules
+# -- Add --
+git submodule add -b master https://github.com/ateleshev/go-bin.git vendor/github.com/ateleshev/go-bin
+
+# -- Init/Update --
+git submodule update --init --recursive --remote && echo "Vendors was successfully updated"
+
