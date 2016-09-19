@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"sync"
+	"time"
 )
 
 import "github.com/ateleshev/go-bin/encoding/json"
@@ -29,6 +31,8 @@ func UpdateLinkTitle(l *data.Link, wg *sync.WaitGroup) {
 }
 
 func main() {
+	var sec float64
+	var startTime time.Time
 	for {
 		// Prompt and read
 		w.WriteString("Press [ Ctrl ] + [ C ] to exit. \n")
@@ -37,6 +41,8 @@ func main() {
 
 		buf, _ := r.ReadBytes('\n')
 		parser := message.NewParser()
+
+		startTime = time.Now()
 
 		res, err := parser.Do(buf[:len(buf)-1])
 		if err != nil {
@@ -51,6 +57,9 @@ func main() {
 			go UpdateLinkTitle(l, &wg)
 		}
 		wg.Wait()
+
+		sec = time.Now().Sub(startTime).Seconds()
+		fmt.Fprintf(w, "Elapsed time: %.3F sec \n", sec)
 
 		w.WriteString("Json: ")
 		res.JsonWriteTo(jw)
