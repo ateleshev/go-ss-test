@@ -22,6 +22,7 @@ func UpdateLinkTitle(link *data.Link) error {
 
 	finder := dom.NewElmFinder(resp.Body)
 	defer finder.Release()
+	finder.SetMaxLoadSize(100 * 1024) // 100 kB
 
 	title, err := finder.Find("html.head.title")
 	if err != nil {
