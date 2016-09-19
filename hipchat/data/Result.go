@@ -43,10 +43,7 @@ func (this *Result) JsonWriteTo(jw *json.JsonWriter) *json.JsonWriter { // {{{
 	if len(this.Mentions) > 0 {
 		jw.StringValue("mentions").Sep().ArrOpen()
 		for i, v := range this.Mentions {
-			if i > 0 {
-				jw.Next()
-			}
-			jw.StringValue(v.Name)
+			jw.NextIf(i > 0).StringValue(v.Name)
 		}
 		jw.ArrClose()
 		n++
@@ -58,10 +55,7 @@ func (this *Result) JsonWriteTo(jw *json.JsonWriter) *json.JsonWriter { // {{{
 		jw.NextIf(n > 0)
 		jw.StringValue("emoticons").Sep().ArrOpen()
 		for i, v := range this.Emoticons {
-			if i > 0 {
-				jw.Next()
-			}
-			jw.StringValue(v.Name)
+			jw.NextIf(i > 0).StringValue(v.Name)
 		}
 		jw.ArrClose()
 		n++
@@ -71,13 +65,9 @@ func (this *Result) JsonWriteTo(jw *json.JsonWriter) *json.JsonWriter { // {{{
 
 	if len(this.Links) > 0 {
 		jw.NextIf(n > 0)
-
 		jw.StringValue("links").Sep().ArrOpen()
 		for i, v := range this.Links {
-			if i > 0 {
-				jw.Next()
-			}
-			v.JsonWriteTo(jw)
+			v.JsonWriteTo(jw.NextIf(i > 0))
 		}
 		jw.ArrClose()
 		n++
